@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ANN Signal Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <div class="logo-mark"><span>ANN</span></div>
+            <div>
+                <div>Signal Dashboard</div>
+                <div class="logo-sub">MULTI-COIN · BINANCE FUTURES · REAL-TIME</div>
+            </div>
+        </div>
+        <div class="header-right">
+            <span id="clock">—</span>
+            <div class="live-badge" id="live-badge">
+                <div class="live-dot"></div>
+                <span id="live-text">CONNECTING</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Summary bar -->
+    <div class="summary-bar">
+        <div class="stat-card">
+            <div class="stat-val" id="sv-coins">—</div>
+            <div class="stat-lbl">Coins Tracked</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-val buy" id="sv-buy">—</div>
+            <div class="stat-lbl">Buy Signals</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-val sell" id="sv-sell">—</div>
+            <div class="stat-lbl">Sell Signals</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-val" id="sv-hold">—</div>
+            <div class="stat-lbl">Hold</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-val" id="sv-return">—</div>
+            <div class="stat-lbl">Avg Backtest Return</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-val" id="sv-sharpe">—</div>
+            <div class="stat-lbl">Avg Sharpe</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-val" id="sv-wr">—</div>
+            <div class="stat-lbl">Avg Win Rate</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-val" id="sv-prof">—</div>
+            <div class="stat-lbl">Profitable Coins</div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <main>
+        <!-- Signals panel -->
+        <section class="panel">
+            <div class="panel-header">
+                <span class="panel-title">Live Signals</span>
+                <div class="filters">
+                    <button class="filter-btn active" data-f="ALL">All</button>
+                    <button class="filter-btn" data-f="BUY">Buy</button>
+                    <button class="filter-btn" data-f="SELL">Sell</button>
+                    <button class="filter-btn" data-f="HOLD">Hold</button>
+                </div>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Symbol</th>
+                            <th>Signal</th>
+                            <th>Confidence</th>
+                            <th>Sell %</th>
+                            <th>Hold %</th>
+                            <th>Buy %</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody id="signals-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Backtest + chart panel -->
+        <section class="panel">
+            <div class="panel-header">
+                <span class="panel-title" id="chart-label">Equity Curves — Top 5 by Sharpe</span>
+                <span class="hint">click any row to inspect</span>
+            </div>
+            <div class="chart-wrap">
+                <canvas id="equity-chart"></canvas>
+            </div>
+            <div class="panel-header" style="border-top:1px solid var(--border)">
+                <span class="panel-title">Backtest Leaderboard</span>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Return</th>
+                            <th>Sharpe</th>
+                            <th>Win %</th>
+                            <th>Max DD</th>
+                            <th>Trades</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bt-body"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span class="modal-header-title" id="modal-title">—</span>
+                <button id="modal-close">✕</button>
+            </div>
+            <div class="modal-stats" id="modal-stats"></div>
+            <div class="modal-chart-wrap">
+                <canvas id="modal-chart"></canvas>
+            </div>
+            <div class="trades-wrap">
+                <div class="panel-header">
+                    <span class="panel-title">Recent Trades</span>
+                </div>
+                <div class="table-wrap" style="max-height:200px">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Side</th>
+                                <th>Entry</th>
+                                <th>Exit</th>
+                                <th>PnL %</th>
+                                <th>Stop Loss</th>
+                                <th>Take Profit</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trades-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
