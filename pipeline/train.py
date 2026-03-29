@@ -241,7 +241,7 @@ def train():
     # ── Test eval ─────────────────────────────────────────────────────────────
     print("\n=== Test Set Evaluation ===")
     raw = model._orig_mod if hasattr(model, "_orig_mod") else model
-    ckpt = torch.load("models/best_model.pt", map_location=DEVICE)
+    ckpt = torch.load("models/best_model.pt", map_location=DEVICE, weights_only=False)
     raw.load_state_dict(ckpt["model_state"])
     raw.eval()
 
