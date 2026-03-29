@@ -1,0 +1,13 @@
+data/raw/
+data/processed/
+data/backtest/
+models/
+logs/
+target/
+__pycache__/
+*.pyc
+*.pyo
+.env
+*.pt
+*.pkl
+*.npy
